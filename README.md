@@ -9,14 +9,14 @@ We need the use of cross-site scripting for the javascript UI to be
 able to fetch ajax-style from our DB.  So open up the
 builb/etc/couchdb/local.ini file for couchdb add/update the following flags:
 
-[couchdb]
-delayed_commits = false
+    [couchdb]
+    delayed_commits = false
 
-[httpd]
-enable_cors = true
+    [httpd]
+    enable_cors = true
 
-[cors]
-origins = *
+    [cors]
+    origins = *
 
 Note: in the default install, [cors] does not exist, so just add it.
 
