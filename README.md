@@ -1,9 +1,11 @@
 experimental-results-framework-couchdb
 ======================================
 
+This repo includes all of the views (couchdb-design-documents) that we will use and any information needed to setup couchdb.
 
-Setting Up/ Configuring CouchDB for CORS
-========================================
+
+Setting Up/ Configuring CouchDB for CORS:
+-----------------------------------------
 
 We need the use of cross-site scripting for the javascript UI to be
 able to fetch ajax-style from our DB.  So open up the
