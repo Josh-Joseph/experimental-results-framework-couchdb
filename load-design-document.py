@@ -53,9 +53,9 @@ if __name__ == "__main__":
                 
                 # if we want to autodetect hte database name,
                 # use the root last directory as the name
-                if args.autodect_database_from_directory_structure:
+                if args.autodetect_database_from_directory_structure:
                     toks = root.split( "/" )
-                    if tok[-1] == "" and len(toks) > 1:
+                    if toks[-1] == "" and len(toks) > 1:
                         dbname = toks[-2]
                     else:
                         dbname = toks[-1]
