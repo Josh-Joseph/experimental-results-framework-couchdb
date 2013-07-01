@@ -7,7 +7,7 @@ import json
 
 
 
-def load_design_document( couch_db, filename ):
+def load_design_document( couch_db, filename, force=False ):
     # Now, load the javascript design document as a dictionary and 
     # save it to the db
     doc = None
@@ -17,6 +17,13 @@ def load_design_document( couch_db, filename ):
     # kill the _rev since we will be assigning a new one when we save this doc
     if "_rev" in doc:
         del doc["_rev"]
+
+    # If we want to force this document to be THE document, 
+    # get any previous revision as itself
+    if force:
+        old_doc = couch_db.get( doc["_id"] )
+        if old_doc is not None:
+            doc["_rev"] = old_doc["_rev"]
         
     new_doc_id, new_doc_rev = db.save( doc )    
     
@@ -38,6 +45,9 @@ if __name__ == "__main__":
     parser.add_argument( "--autodetect-database-from-directory-structure", 
                          default=False, action="store_const", const=True,
                          help="If given, the database name to store a found design document will be the direct poarent directory name. This option really only makes sense if --recursive is given. Any files without a direct parent in the structure will be loaded into the databse denoted in --database-name")
+    parser.add_argument( "--force", default=False,
+                         action="store_const", const=True,
+                         help="Force the filesystem document to be the document, irregardless of revision conflits in the databse." )
     args = parser.parse_args()
 
     # create a new couchdb session and databse
@@ -67,8 +77,8 @@ if __name__ == "__main__":
                     except couchdb.PreconditionFailed:
                         pass
                     db = couch[dbname]
-                load_design_document( db, os.path.join( root, filename ) )
+                load_design_document( db, os.path.join( root, filename ), force=args.force )
 
     else:
     
-        load_design_document( db, args.design_document_js )
+        load_design_document( db, args.design_document_js, force=args.force )

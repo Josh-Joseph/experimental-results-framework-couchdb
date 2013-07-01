@@ -1,0 +1,12 @@
+{
+   "_id": "_design/computation_tracker",
+   "language": "javascript",
+   "views": {
+       "all_jobs_by_cluster_and_status": {
+           "map": "function(doc) {\n  if( doc.job ) {\n    emit({ \"cluster_id\" : doc.computation.cluster_id, \"status\" : doc.computation.status } , doc);\n  }\n}"
+       },
+       "all_computations_by_status": {
+           "map": "function(doc) {\n  if( doc.computation ) {\n    emit(doc.computation.status , doc);\n  }\n}"
+       }
+   }
+}

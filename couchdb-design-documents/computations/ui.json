@@ -1,0 +1,14 @@
+
+{
+   "_id": "_design/ui",
+   "language": "javascript",
+   "views": {
+       "by_cluster_id": {
+           "map": "function(doc) {\n  if( doc.computation ) {\n    emit(doc.computation.cluster_id , doc);\n  }\n}"
+       },
+       "status_count_by_script": {
+           "map": "function(doc) {\n  if( doc.computation ) {\n    emit([doc.computation.script,doc.computation.cluster_id] , doc);\n  }\n}",
+           "reduce": "function (key, values, rereduce) {\n  val = { done: 0, submitted: 0, other: 0 };\n  if( rereduce ) {\n     values.forEach( function( e ) {\n       val.done += e.done;\n       val.submitted += e.submitted;\n       val.other += e.other;\n     });\n  } else {\n     values.forEach( function( d ) {\n       if( d.computation.status == \"done\" ) {\n         val.done += 1;\n       }\n       else if( d.computation.status == \"submitted\" ) {\n         val.submitted += 1;\n       } else {\n         val.other += 1;\n       }\n     });\n  }\n  return val;\n}"
+       }
+   }
+}
