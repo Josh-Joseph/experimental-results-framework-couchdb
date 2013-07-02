@@ -1,0 +1,10 @@
+{
+   "_id": "_design/stats",
+   "language": "javascript",
+   "views": {
+       "base_stats": {
+           "map": "function(doc) {\n  emit([doc.code.version, doc.computation.parameters], doc.computation.result.mean);\n}",
+           "reduce": "function( keys, values, rereduce ) {\n  // if we are not rereducing, just store the relevant bits\n  // for hte men and variance\n  if( !rereduce ) {\n    var sum_v = 0, sum_squared_v = 0, mean_v = 0, variance_v = 0;\n    for( var i = 0; i < values.length; ++i ) {\n      sum_v += values[i];\n      sum_squared_v += ( values[i] * values[i] );\n    }\n    mean_v = sum_v / values.length;\n    variance_v = ( sum_squared_v / values.length ) - Math.pow( mean_v, 2 );\n    return { n: values.length,\n             mean: mean_v,\n             variance: variance_v,\n\t     sum: sum_v,\n             sum_squared: sum_squared_v };\n  } else {\n\n    // we are rereducing, so take care here!\n    // values are now in the form of objects returned above\n    var sum_v = 0, sum_squared_v = 0, mean_v = 0, variance_v = 0, n_v = 0;\n    for( var i = 0; i < values.length; ++i ) {\n      var v = values[i];\n      variance_v = ( n_v * variance_v + v.n * v.variance ) / ( n_v + v.n ) + n_v * v.n * Math.pow( (v.mean - mean_v) / ( n_v + v.n ), 2 );\n      mean_v = ( n_v * mean_v + v.n * v.mean ) / ( n_v + v.n );\n      n_v += v.n;\n      sum_v += v.sum;\n      sum_squared_v += v.sum_squared;\n    }\n    return { n: n_v,\n\t     mean: mean_v,\n             variance: variance_v,\n             sum: sum_v,\n             sum_squared: sum_squared_v }; \n  }\n}"
+       }
+   }
+}
