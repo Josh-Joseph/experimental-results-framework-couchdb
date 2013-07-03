@@ -1,0 +1,10 @@
+{
+   "_id": "_design/sandbox",
+   "language": "javascript",
+   "views": {
+       "rereduce_count": {
+           "map": "function(doc) {\n  emit([doc.code.version, doc.computation.parameters], doc.computation.result.mean);\n}",
+           "reduce": "_count"
+       }
+   }
+}
