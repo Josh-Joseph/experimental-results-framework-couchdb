@@ -1,0 +1,10 @@
+{
+   "_id": "_design/ui",
+   "language": "javascript",
+   "views": {
+       "count_by_version": {
+           "map": "function(doc) {\n  if( doc.code && doc.code.version && doc.computation ) {\n    if( doc.computation.result ) {\n\tdoc.computation.result = undefined;\n    }\n    emit([doc.code.version, doc.computation], null);\n  }\n}",
+           "reduce": "_count"
+       }
+   }
+}
