@@ -53,3 +53,11 @@ So open up the builb/etc/couchdb/local.ini file for couchdb add/update the follo
 Note: in the default install, [query_servers] does not exist, so just add it.
 
 See [here](http://pythonhosted.org/CouchDB/) for more information.
+
+
+CouchDB and Sorting Keys:
+-------------------------
+
+Look at section 9.4.9.2 of the couchdb manual [here](https://couchdb.readthedocs.org/en/latest/api/design.html) 
+to see the exact rules couchdb uses to sort the keys. These are extremely important when using the 
+startKey and endKey features of the view queries.
