@@ -4,7 +4,23 @@ experimental-results-framework-couchdb
 This repo includes all of the views (couchdb-design-documents) that we will use and any information needed to setup couchdb.
 
 
-Setting Up/ Configuring CouchDB for CORS:
+Getting couchdb running:
+------------------------
+
+To get CouchDB running:
+
+    sudo apt-get install help2man make gcc zlib1g-dev libssl-dev rake help2man texinfo flex dctrl-tools libsctp-dev libxslt1-dev libcap2-bin ed
+
+    sudo pip install couchdb gitpython
+    
+    git clone git://github.com/iriscouch/build-couchdb.git
+    
+    cd build-couchdb/
+    
+    rake
+    
+
+Configuring CouchDB for CORS:
 -----------------------------------------
 
 We need the use of cross-site origin resource sharing (CORS) for the javascript UI to be
@@ -26,7 +42,7 @@ We can also just add hosts to the origins, comma separated, but *
 allows everything and for development it might be useful.
 
 
-Setting Up Python Map-Reduce for CouchDB Views:
+Configuring Python Map-Reduce for CouchDB Views:
 -----------------------------------------
 
 So open up the builb/etc/couchdb/local.ini file for couchdb add/update the following flags:
