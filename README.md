@@ -55,9 +55,12 @@ Note: in the default install, [query_servers] does not exist, so just add it.
 See [here](http://pythonhosted.org/CouchDB/) for more information.
 
 
-CouchDB and Sorting Keys:
--------------------------
+CouchDB Tips:
+-------------
 
-Look at section 9.4.9.2 of the couchdb manual [here](https://couchdb.readthedocs.org/en/latest/api/design.html) 
-to see the exact rules couchdb uses to sort the keys. These are extremely important when using the 
-startKey and endKey features of the view queries.
+There is an internal limiting feature that checks if the string representation of the result of a reduce function is larger than the string representation of the original data, raise and exception. This can be turned off by adding:
+
+    [query_server_config]
+    reduce_limit = false
+
+For a quirk of sorting keys look at section 9.4.9.2 of the couchdb manual [here](https://couchdb.readthedocs.org/en/latest/api/design.html) to see the exact rules couchdb uses to sort the keys. These are extremely important when using the startKey and endKey features of the view queries.
