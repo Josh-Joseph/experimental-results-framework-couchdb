@@ -25,7 +25,7 @@ Configuring CouchDB for CORS:
 
 We need the use of cross-site origin resource sharing (CORS) for the javascript UI to be
 able to fetch ajax-style from our DB.  So open up the
-builb/etc/couchdb/local.ini file for couchdb add/update the following flags:
+build/etc/couchdb/local.ini file for couchdb add/update the following flags:
 
     [couchdb]
     delayed_commits = false
