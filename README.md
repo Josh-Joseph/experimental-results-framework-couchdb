@@ -45,7 +45,7 @@ allows everything and for development it might be useful.
 Configuring Python Map-Reduce for CouchDB Views:
 -----------------------------------------
 
-So open up the builb/etc/couchdb/local.ini file for couchdb add/update the following flags:
+So open up the build/etc/couchdb/local.ini file for couchdb add/update the following flags:
 
     [query_servers]
     python = <absolute path to couchpy executable>
