@@ -50,7 +50,7 @@ So open up the builb/etc/couchdb/local.ini file for couchdb add/update the follo
     [query_servers]
     python = <absolute path to couchpy executable>
     
-Note: in the default install, [query_servers] does not exist, so just add it.
+The path is probably /usr/local/bin/couchpy or /usr/bin/couchpy. Note: in the default install, [query_servers] does not exist, so just add it.
 
 See [here](http://pythonhosted.org/CouchDB/) for more information.
 
