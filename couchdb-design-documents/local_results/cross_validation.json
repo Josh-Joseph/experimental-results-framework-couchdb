@@ -1,0 +1,9 @@
+{
+   "_id": "_design/cross_validation",
+   "language": "javascript",
+   "views": {
+       "folds_means": {
+           "map": "function(doc) {\n  var profits = []\n  for (var i in doc.computation.folds) {\n    profits.push(sum(doc.computation.folds[i]) / doc.computation.folds[i].length)\n  }\n  emit(doc._id, profits);\n}"
+       }
+   }
+}

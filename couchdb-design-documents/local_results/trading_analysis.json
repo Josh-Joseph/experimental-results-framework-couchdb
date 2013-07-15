@@ -1,0 +1,9 @@
+{
+   "_id": "_design/trading_analysis",
+   "language": "javascript",
+   "views": {
+       "mean_profit": {
+           "map": "function(doc) {\n  var profits = []\n  for (var i in doc.computation.result) {\n    profits.push(doc.computation.result[i].profit_perc)\n  }\n  emit(doc._id, sum(profits) / profits.length);\n}"
+       }
+   }
+}
